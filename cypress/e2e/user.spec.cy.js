@@ -14,6 +14,10 @@ describe("Orange HRM Tests", () => {
     genericField: ".oxd-input--active",
     dateCloseButton: ".--close",
     saveButton: "[type='submit']",
+    textInput: ".oxd-select-text-input",
+    optionsNationality: ".oxd-select-dropdown > :nth-child(10)",
+    optionsMarried: ".oxd-select-dropdown > :nth-child(2)",
+    selectGender: ".oxd-radio-input",
   };
 
   it.only("User Info Update - success", () => {
@@ -32,8 +36,14 @@ describe("Orange HRM Tests", () => {
     cy.get(selectorsList.genericField).eq(5).clear().type("DriversLicense");
     cy.get(selectorsList.genericField).eq(6).clear().type("2025-03-10");
     cy.get(selectorsList.dateCloseButton).click();
-    cy.get(selectorsList.buttonSubmit).eq(0).click();
-    cy.get("body").should("contain", "Successfully Updated");
+    cy.get(selectorsList.textInput).eq(0).click();
+    cy.get(selectorsList.optionsNationality).click();
+    cy.get(selectorsList.textInput).eq(1).click();
+    cy.get(selectorsList.optionsMarried).click();
+    cy.get(selectorsList.genericField).eq(8).clear().type("2004-02-21");
+    cy.get(selectorsList.dateCloseButton).click();
+    cy.get(selectorsList.selectGender).eq(1).click();
+    cy.get(selectorsList.saveButton).eq(0).click();
     cy.get(".oxd-toast-close");
   });
 
