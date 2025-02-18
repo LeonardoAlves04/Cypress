@@ -33,7 +33,8 @@ describe("Orange HRM Tests", () => {
     cy.get(selectorsList.genericField).eq(6).clear().type("2025-03-10");
     cy.get(selectorsList.dateCloseButton).click();
     cy.get(selectorsList.buttonSubmit).eq(0).click();
-    cy.get("body").should("contain", "Succesfully Updated");
+    cy.get("body").should("contain", "Successfully Updated");
+    cy.get(".oxd-toast-close");
   });
 
   it("Login - fail", () => {
