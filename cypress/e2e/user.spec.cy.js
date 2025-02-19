@@ -1,33 +1,21 @@
 import userData from "../fixtures/users/user-data.json";
+import DashboardPage from "../pages/dashboardPage";
+import LoginPage from "../pages/loginPage";
+
+const loginPage = new LoginPage();
+const dashboardPage = new DashboardPage();
 
 describe("Orange HRM Tests", () => {
-  const selectorsList = {
-    usernameField: "[name='username']",
-    passwordField: "[type='password']",
-    buttonSubmit: "[type='submit']",
-    errorAlert: ".oxd-alert--error",
-    dashboardGrid: ".orangehrm-dashboard-grid",
-    myInfoButton: "[href='/web/index.php/pim/viewMyDetails']",
-    firstName: "[name='firstName']",
-    middleName: "[name='middleName']",
-    lastName: "[name='lastName']",
-    genericField: ".oxd-input--active",
-    dateCloseButton: ".--close",
-    saveButton: "[type='submit']",
-    textInput: ".oxd-select-text-input",
-    optionsNationality: ".oxd-select-dropdown > :nth-child(10)",
-    optionsMarried: ".oxd-select-dropdown > :nth-child(2)",
-    selectGender: ".oxd-radio-input",
-  };
+  const selectorsList = {};
 
   it.only("User Info Update - success", () => {
-    cy.visit("/auth/login");
-    cy.get(selectorsList.usernameField).type(userData.userSucces.username);
-    cy.get(selectorsList.passwordField).type(userData.userSucces.password);
-    cy.get(selectorsList.buttonSubmit).click();
-    cy.location("pathname").should("equal", "/web/index.php/dashboard/index");
-    cy.get(selectorsList.dashboardGrid);
-    cy.get(selectorsList.myInfoButton).click();
+    loginPage.accessLoginPage();
+    loginPage.loginWithUser(
+      userData.userSucces.username,
+      userData.userSucces.password
+    );
+    dashboardPage.checkDashboardPage();
+
     cy.get(selectorsList.firstName).clear().type("Leonardo ");
     cy.get(selectorsList.middleName).clear().type("Alves");
     cy.get(selectorsList.lastName).clear().type("de Almeida");
